@@ -105,4 +105,16 @@ public class AuctionService {
         .build();
   }
 
+  public AuctionResponse selectAuctionDetail(long auctionId, long userId) {
+
+    User setter = userRepository.findById(userId).orElseThrow();
+    Auction auction = auctionRepository.findByIdAndSetter(auctionId, setter).orElseThrow();
+
+    AuctionImage auctionThumbnailImage = auctionImageRepository.findByAuctionAndImageType(auction, ImageType.THUMB).orElseThrow();
+    List<AuctionImage> auctionContentImageList = auctionImageRepository.findAllByAuctionAndImageType(auction, ImageType.CONTENT).orElseThrow();
+
+    return AuctionResponse.fromAuction(auction, auctionThumbnailImage, auctionContentImageList);
+
+  }
+
 }

@@ -9,6 +9,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AuctionRepository extends JpaRepository<Auction, Long> {
+
   Optional<Long> countBySetter(User setter);
+
   Optional<List<Auction>> findAllBySetter(Pageable pageable, User setter);
+
+  Optional<Auction> findByIdAndSetter(long id, User setter);
 }
