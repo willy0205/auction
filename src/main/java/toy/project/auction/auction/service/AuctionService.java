@@ -8,6 +8,7 @@ import toy.project.auction.auction.domain.Auction;
 import toy.project.auction.auction.domain.AuctionImage;
 import toy.project.auction.auction.enums.AuctionStatus;
 import toy.project.auction.auction.enums.ImageType;
+import toy.project.auction.auction.model.AuctionListResponse;
 import toy.project.auction.auction.model.AuctionRequest;
 import toy.project.auction.auction.model.AuctionResponse;
 import toy.project.auction.auction.repository.AuctionImageRepository;
@@ -16,6 +17,7 @@ import toy.project.auction.common.util.FileUploadUtil;
 import toy.project.auction.user.domain.User;
 import toy.project.auction.user.repository.UserRepository;
 
+import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,10 +84,11 @@ public class AuctionService {
 
   }
 
-  public List<AuctionResponse> selectUserAuctionList(int page, int size, long userID) {
+  public AuctionListResponse selectUserAuctionList(int page, int size, long userID) {
 
-    auctionRepository.findAllBySetter(PageRequest.of(page, size)).getTotalPages();
-    List<Auction> auctionList = auctionRepository.findAll(PageRequest.of(page, size)).getContent();
+    User setter = userRepository.findById(userID).orElseThrow();
+    long totalAuctionCount = auctionRepository.countBySetter(setter).orElseThrow();
+    List<Auction> auctionList = auctionRepository.findAllBySetter(PageRequest.of(page, size), setter).orElseThrow();
 
     List<AuctionResponse> result = new ArrayList<>();
 
@@ -96,7 +99,10 @@ public class AuctionService {
       result.add(auctionResponse);
     }
 
-    return result;
+    return AuctionListResponse.builder()
+        .auctionResponse(result)
+        .totalCount(totalAuctionCount)
+        .build();
   }
 
 }
