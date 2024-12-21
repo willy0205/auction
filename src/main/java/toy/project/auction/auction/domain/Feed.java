@@ -3,6 +3,7 @@ package toy.project.auction.auction.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import toy.project.auction.user.domain.User;
 
 import java.util.*;
 
@@ -11,12 +12,14 @@ import java.util.*;
 @Setter
 @Table(name = "FEED")
 public class Feed {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "USERID", nullable = false)
-  private Long userId;
+  @JoinColumn(name = "USERID", nullable = false)
+  @ManyToOne
+  private User userId;
 
   @Column(name = "CONTENTS")
   private String contents;

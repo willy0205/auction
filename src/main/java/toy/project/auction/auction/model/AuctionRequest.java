@@ -15,6 +15,7 @@ import java.util.List;
 @Getter
 public class AuctionRequest {
   private long setterId;
+  private long categoryId;
   private String title;
   private String summary;
   private String description;

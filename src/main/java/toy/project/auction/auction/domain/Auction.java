@@ -5,6 +5,7 @@ import java.util.*;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 import toy.project.auction.auction.enums.AuctionStatus;
 import toy.project.auction.auction.enums.CurrencyUnit;
 import toy.project.auction.auction.model.AuctionRequest;
@@ -30,11 +31,15 @@ public class Auction {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private long id;
 
   @JoinColumn(name = "SETTERID", nullable = false)
   @ManyToOne
   private User setter;
+
+  @JoinColumn(name = "CATEGORYID", nullable = false)
+  @ManyToOne
+  private Categroy categoryId;
 
   @Column(name = "TITLE", nullable = false)
   private String title;
@@ -46,17 +51,19 @@ public class Auction {
   private String description;
 
   @Column(name = "STARTINGPRICE", nullable = false)
-  private Long startingPrice;
+  private long startingPrice;
 
   @Column(name = "CURRENTPRICE", nullable = false)
-  private Long currentPrice;
+  private long currentPrice;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "CURRENCYUNIT")
   private CurrencyUnit currencyUnit;
 
+  @Column(name = "REGISTERTIME", nullable = false)
   private Date registerTime;
 
+  @Column(name = "UPDATETIME", nullable = false)
   private Date updateTime;
 
   @Column(name = "STARTTIME", nullable = false)
@@ -72,6 +79,10 @@ public class Auction {
   @Column(name = "BIBINCREMENT")
   private Integer bidIncrement;
 
+  @Column(name = "DELETED", nullable = false)
+  @ColumnDefault("false")
+  private boolean deleted;
+
   @OneToMany(mappedBy = "auction")
   private List<AuctionComment> comments;
 
@@ -81,7 +92,7 @@ public class Auction {
   @OneToMany(mappedBy = "auction")
   private List<AuctionImage> images;
 
-  public static Auction fromRequest(AuctionRequest request, User setter) {
+  public static Auction fromRequest(AuctionRequest request, User setter, Categroy categroy) {
     Auction auction = new Auction();
     auction.setSetter(setter);
     auction.setTitle(request.getTitle());
@@ -94,6 +105,7 @@ public class Auction {
     auction.setEndTime(request.getEndTime());
     auction.setStatus(request.getStatus());
     auction.setBidIncrement(request.getBidIncrement());
+    auction.setCategoryId(categroy);
     // thumbnailImage와 imageList는 추가적인 처리 필요
     return auction;
   }

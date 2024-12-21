@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import toy.project.auction.auction.domain.Auction;
 import toy.project.auction.auction.domain.AuctionImage;
+import toy.project.auction.auction.domain.Categroy;
 import toy.project.auction.auction.enums.AuctionStatus;
 import toy.project.auction.auction.enums.ImageType;
 import toy.project.auction.auction.model.AuctionListResponse;
@@ -13,6 +14,7 @@ import toy.project.auction.auction.model.AuctionRequest;
 import toy.project.auction.auction.model.AuctionResponse;
 import toy.project.auction.auction.repository.AuctionImageRepository;
 import toy.project.auction.auction.repository.AuctionRepository;
+import toy.project.auction.auction.repository.CategoryRepository;
 import toy.project.auction.common.util.FileUploadUtil;
 import toy.project.auction.user.domain.User;
 import toy.project.auction.user.repository.UserRepository;
@@ -33,14 +35,18 @@ public class AuctionService {
 
   private final AuctionImageRepository auctionImageRepository;
 
+  private final CategoryRepository categoryRepository;
+
   public void registerAuction(AuctionRequest auctionRequest){
 
     User setter = userRepository.findById(auctionRequest.getSetterId()).orElseThrow();
 
+    Categroy categroy = categoryRepository.findById(auctionRequest.getCategoryId()).orElseThrow();
+
     auctionRequest.setStatus(AuctionStatus.READY);
 
     // Auction DTO -> entity
-    Auction auctionEntity = Auction.fromRequest(auctionRequest, setter);
+    Auction auctionEntity = Auction.fromRequest(auctionRequest, setter, categroy);
 
     // 썸네일 이미지 파일 업로드
     String thumnailPath = fileUploadUtil.uploadThumbnailImage(auctionRequest.getThumbnailImage())

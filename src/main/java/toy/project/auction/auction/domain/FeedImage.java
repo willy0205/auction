@@ -14,6 +14,9 @@ public class FeedImage {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+//  @EmbeddedId
+//  private FeedId feedId; // 복합 키 필드
+
   @ManyToOne
   @JoinColumn(name = "FEEDID", nullable = false)
   private Feed feed;
