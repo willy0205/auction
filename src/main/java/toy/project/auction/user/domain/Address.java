@@ -22,13 +22,13 @@ import org.hibernate.annotations.ColumnDefault;
 public class Address {
 
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private long id;
+
   @JoinColumn(name = "USERID", nullable = false)
   @ManyToOne
   private User userId;
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
 
   @Column(name = "ADDRESS", nullable = false)
   private String address;

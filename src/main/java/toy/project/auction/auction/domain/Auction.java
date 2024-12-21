@@ -9,6 +9,7 @@ import org.hibernate.annotations.ColumnDefault;
 import toy.project.auction.auction.enums.AuctionStatus;
 import toy.project.auction.auction.enums.CurrencyUnit;
 import toy.project.auction.auction.model.AuctionRequest;
+import toy.project.auction.feed.domain.Feed;
 import toy.project.auction.user.domain.User;
 
 @Entity
@@ -82,6 +83,10 @@ public class Auction {
   @Column(name = "DELETED", nullable = false)
   @ColumnDefault("false")
   private boolean deleted;
+
+  @JoinColumn(name = "FEEDID")
+  @OneToOne
+  private Feed feedId;
 
   @OneToMany(mappedBy = "auction")
   private List<AuctionComment> comments;

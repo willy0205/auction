@@ -1,9 +1,11 @@
-package toy.project.auction.auction.domain;
+package toy.project.auction.feed.domain;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import toy.project.auction.auction.enums.ImageType;
+import toy.project.auction.user.domain.User;
 
 @Entity
 @Getter
@@ -31,14 +33,19 @@ public class FeedImage {
   private String imageUrl;
 
   @Column(name = "FILESIZE")
-  private Integer fileSize;
+  private long fileSize;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "IMAGETYPE", nullable = false)
   private ImageType imageType;
 
-  @Column(name = "USERID", nullable = false)
-  private Long userId;
-
-  // Getters and Setters
+  @Builder
+  public FeedImage(Feed feed, String originalFileName, String savingFileName, String imageUrl, long fileSize, ImageType imageType) {
+    this.feed = feed;
+    this.savingFileName = savingFileName;
+    this.imageUrl = imageUrl;
+    this.fileSize = fileSize;
+    this.imageType = imageType;
+    this.originalFileName = originalFileName;
+  }
 }

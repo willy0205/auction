@@ -1,9 +1,6 @@
-package toy.project.auction.auction.domain;
+package toy.project.auction.feed.domain;
 
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 
 import java.io.Serializable;
 import java.util.Objects;

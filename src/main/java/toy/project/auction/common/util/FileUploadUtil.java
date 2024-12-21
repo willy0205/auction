@@ -16,14 +16,22 @@ import java.util.UUID;
 public class FileUploadUtil {
 
   @Value("${file.upload-dir-content}")
-  private String uploadContentDir;
+  private String uploadAuctionContentDir;
 
   @Value("${file.upload-dir-thumbnail}")
-  private String uploadThumbnailDir;
+  private String uploadAuctionThumbnailDir;
+
+  @Value("file.upload-dir-feed")
+  private String uploadFeedImageDir;
 
   // 업로드 디렉토리 생성
   private void createUploadDirectory(ImageType imageType) {
-    String directoryPath = imageType.equals(ImageType.THUMB) ? uploadThumbnailDir : uploadContentDir;
+    String directoryPath = switch (imageType) {
+      case FEED -> uploadFeedImageDir;
+      case THUMB -> uploadAuctionThumbnailDir;
+      case CONTENT -> uploadAuctionContentDir;
+      default -> throw new IllegalArgumentException("Invalid image type: " + imageType);
+    };
     File directory = new File(directoryPath);
     if (!directory.exists()) {
       directory.mkdirs();
@@ -47,7 +55,7 @@ public class FileUploadUtil {
     }
 
     try {
-      String filePath = saveFile(file, uploadThumbnailDir);
+      String filePath = saveFile(file, uploadAuctionThumbnailDir);
       return Optional.of(filePath); // 성공 시 파일 경로 반환
     } catch (IOException e) {
       System.err.println("파일 업로드 실패: " + e.getMessage());
@@ -63,7 +71,22 @@ public class FileUploadUtil {
     }
 
     try {
-      String filePath = saveFile(file, uploadContentDir);
+      String filePath = saveFile(file, uploadAuctionContentDir);
+      return Optional.of(filePath); // 성공 시 파일 경로 반환
+    } catch (IOException e) {
+      System.err.println("파일 업로드 실패: " + e.getMessage());
+      return Optional.empty(); // 실패 시 빈 Optional 반환
+    }
+  }
+
+  public Optional<String> uploadFeedFile(MultipartFile file) {
+
+    createUploadDirectory(ImageType.FEED);
+    if (file.isEmpty()) {
+      return Optional.empty(); // 파일이 비어있는 경우
+    }
+    try {
+      String filePath = saveFile(file, uploadFeedImageDir);
       return Optional.of(filePath); // 성공 시 파일 경로 반환
     } catch (IOException e) {
       System.err.println("파일 업로드 실패: " + e.getMessage());
@@ -84,7 +107,7 @@ public class FileUploadUtil {
 
     try {
       for (MultipartFile file : files) {
-        String filePath = saveFile(file, uploadContentDir);
+        String filePath = saveFile(file, uploadAuctionContentDir);
         result.add(filePath);
       }
       return Optional.of(result); // 성공 시 파일 경로 반환
@@ -93,4 +116,6 @@ public class FileUploadUtil {
       return Optional.empty(); // 실패 시 빈 Optional 반환
     }
   }
+
+
 }
