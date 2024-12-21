@@ -3,6 +3,7 @@ package toy.project.auction.feed.domain;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import toy.project.auction.user.domain.User;
@@ -12,6 +13,7 @@ import java.util.*;
 @Entity
 @Getter
 @Setter
+@RequiredArgsConstructor
 @Table(name = "FEED")
 public class Feed {
 

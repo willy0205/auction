@@ -3,6 +3,7 @@ package toy.project.auction.feed.domain;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import toy.project.auction.auction.enums.ImageType;
 import toy.project.auction.user.domain.User;
@@ -10,6 +11,7 @@ import toy.project.auction.user.domain.User;
 @Entity
 @Getter
 @Setter
+@RequiredArgsConstructor
 @Table(name = "FEEDIMAGE")
 public class FeedImage {
   @Id
