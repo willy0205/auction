@@ -19,7 +19,7 @@ import toy.project.auction.common.model.ResponseDto;
 import toy.project.auction.common.model.ResponseHandler;
 
 @RestController
-@RequestMapping("auction")
+@RequestMapping("api/auction")
 @RequiredArgsConstructor
 public class AuctionController {
 

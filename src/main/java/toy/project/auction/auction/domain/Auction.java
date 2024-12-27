@@ -9,6 +9,7 @@ import org.hibernate.annotations.ColumnDefault;
 import toy.project.auction.auction.enums.AuctionStatus;
 import toy.project.auction.auction.enums.CurrencyUnit;
 import toy.project.auction.auction.model.AuctionRequest;
+import toy.project.auction.comment.domain.AuctionComment;
 import toy.project.auction.feed.domain.Feed;
 import toy.project.auction.user.domain.User;
 
@@ -91,7 +92,7 @@ public class Auction {
   @OneToMany(mappedBy = "auction")
   private List<AuctionComment> comments;
 
-  @OneToMany(mappedBy = "auction")
+  @OneToMany
   private List<Bid> bids;
 
   @OneToMany(mappedBy = "auction")

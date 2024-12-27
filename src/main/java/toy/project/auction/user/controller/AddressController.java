@@ -18,7 +18,7 @@ import toy.project.auction.user.service.AddressService;
 import java.util.List;
 
 @RestController
-@RequestMapping("address")
+@RequestMapping("api/address")
 @RequiredArgsConstructor
 public class AddressController {
 
