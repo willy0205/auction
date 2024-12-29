@@ -9,6 +9,7 @@ import org.hibernate.annotations.ColumnDefault;
 import toy.project.auction.auction.enums.AuctionStatus;
 import toy.project.auction.auction.enums.CurrencyUnit;
 import toy.project.auction.auction.model.AuctionRequest;
+import toy.project.auction.comment.domain.AuctionComment;
 import toy.project.auction.feed.domain.Feed;
 import toy.project.auction.user.domain.User;
 

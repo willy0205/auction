@@ -17,7 +17,7 @@ import toy.project.auction.feed.service.FeedService;
 import java.util.List;
 
 @RestController
-@RequestMapping("feed")
+@RequestMapping("api/feed")
 @RequiredArgsConstructor
 public class FeedController {
 
@@ -41,7 +41,7 @@ public class FeedController {
   }
 
   // user
-  @GetMapping("user/list")
+  @GetMapping("list")
   public ResponseEntity<ResponseDto<List<FeedResponse>>> selectFeedList(
       @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "20") int size) {
     // user id 추출

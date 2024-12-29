@@ -1,8 +1,9 @@
-package toy.project.auction.auction.domain;
+package toy.project.auction.comment.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import toy.project.auction.auction.domain.Auction;
 
 import java.util.*;
 
@@ -24,6 +25,13 @@ public class AuctionComment {
   private Long userId;
 
 
+  @JoinColumn(name = "PARENTID")
+  @ManyToOne(fetch = FetchType.LAZY)
+  private AuctionComment parentId;
+
+  @OneToMany(mappedBy = "parentId", cascade = CascadeType.ALL)
+  private List<AuctionComment> replies = new ArrayList<>();
+
   @Column(name = "CONTENT", nullable = false)
   private String content;
 
@@ -33,18 +41,12 @@ public class AuctionComment {
   @Column(name = "UPDATETIME")
   private Date updateTime;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "PARENTID")
-  private AuctionComment parent;
-
-  @OneToMany(mappedBy = "parent")
-  private List<AuctionComment> child;
-
   // Getters and Setters
 
   // == 연관관계 편의 메서드 ==//
-  public void addChildAuctionComment(AuctionComment child) {
-    this.child.add(child);
-    child.setParent(parent);
+  public void addAuctionCommentReply(AuctionComment reply) {
+    this.replies.add(reply);
+    reply.setParentId(reply);
   }
+
 }
