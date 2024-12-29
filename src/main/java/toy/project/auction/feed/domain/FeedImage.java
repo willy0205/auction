@@ -15,15 +15,20 @@ import toy.project.auction.user.domain.User;
 @Table(name = "FEEDIMAGE")
 public class FeedImage {
   @Id
+  @Column(name = "FEEDIMAGEID")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
 //  @EmbeddedId
 //  private FeedId feedId; // 복합 키 필드
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "FEEDID", nullable = false)
   private Feed feed;
+
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "USERID")
+  private User user;
 
   @Column(name = "ORIGINALFILENAME", nullable = false)
   private String originalFileName;
