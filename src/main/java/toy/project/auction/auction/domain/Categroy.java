@@ -1,20 +1,15 @@
 package toy.project.auction.auction.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -35,8 +30,9 @@ public class Categroy {
   }
 
   @Id
+  @Column(name = "CATEGORYID")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  private Long id;
 
   @Column(name = "NAME", nullable = false)
   private String name;
@@ -53,6 +49,9 @@ public class Categroy {
   @Column(name = "DELETED")
   @ColumnDefault("false")
   private boolean deleted;
+
+  @OneToMany(mappedBy = "categoryId")
+  private List<Auction> auctions = new ArrayList<>();
 
   @Builder // 빌더 패턴 적용
   public Categroy(String name, String description){

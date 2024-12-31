@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
+import toy.project.auction.auction.domain.Auction;
 import toy.project.auction.user.domain.User;
 
 import java.util.*;
@@ -29,11 +30,12 @@ public class Feed {
   }
 
   @Id
+  @Column(name = "FEEDID")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  private Long id;
 
   @JoinColumn(name = "USERID", nullable = false)
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   private User userId;
 
   @Column(name = "CONTENTS")
@@ -55,6 +57,12 @@ public class Feed {
 
   @Column(name = "UPDATETIME")
   private Date updateTime;
+
+  @OneToOne(mappedBy = "feedId")
+  private Auction auction;
+
+  @OneToMany(mappedBy = "feed")
+  private List<FeedImage> feedImages = new ArrayList<>();
 
   @Builder
   public Feed(String contents, User userId) {

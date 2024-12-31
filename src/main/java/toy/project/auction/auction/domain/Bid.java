@@ -3,6 +3,7 @@ package toy.project.auction.auction.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import toy.project.auction.user.domain.User;
 
 import java.util.Date;
 
@@ -12,11 +13,13 @@ import java.util.Date;
 @Table(name = "BID")
 public class Bid {
   @Id
+  @Column(name = "BIDID")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "BIDDERID", nullable = false)
-  private Long bidderId;
+  @JoinColumn(name = "BIDDERID", nullable = false)
+  @OneToOne(fetch = FetchType.LAZY)
+  private User bidderId;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "AUCTIONID", nullable = false)
