@@ -4,6 +4,12 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import toy.project.auction.auction.domain.Auction;
+import toy.project.auction.auction.domain.Bid;
+import toy.project.auction.feed.domain.Feed;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "USERS")
@@ -12,6 +18,7 @@ import lombok.NoArgsConstructor;
 public class User {
 
   @Id
+  @Column(name = "USERSID")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
@@ -23,6 +30,12 @@ public class User {
 
   @Column(name = "EMAIL", nullable = false)
   private String email;
+
+  @OneToMany(mappedBy = "setter")
+  private List<Auction> auctions = new ArrayList<>();
+
+  @OneToMany(mappedBy = "userId")
+  private List<Feed> feeds = new ArrayList<>();
 
   @Builder // 빌더 패턴 적용
   public User(String username, String password, String email) {

@@ -1,15 +1,6 @@
 package toy.project.auction.auction.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,10 +13,11 @@ import toy.project.auction.user.domain.User;
 @Table(name = "AUCTIONIMAGE")
 public class AuctionImage {
   @Id
+  @Column(name = "AUCTIONIMAGEID")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "AUCTIONID", nullable = false)
   private Auction auction;
 
@@ -46,7 +38,7 @@ public class AuctionImage {
   private ImageType imageType;
 
   @JoinColumn(name = "USERID", nullable = false)
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   private User userId;
 
   @Builder
