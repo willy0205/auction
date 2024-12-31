@@ -16,7 +16,7 @@ public class FeedResponse {
 
   private long id;
   private String contents;
-  private Integer likeCount;
+  private int likeCount;
   private long commentsCount;
   private boolean visibility;
   private Date registerTime;
@@ -32,7 +32,7 @@ public class FeedResponse {
         .contents(feed.getContents())
         .likeCount(feed.getLikeCount())
         .commentsCount(feed.getCommentsCount())
-        .visibility(feed.getVisibility())
+        .visibility(feed.isVisibility())
         .registerTime(feed.getRegisterTime())
         .updateTime(feed.getUpdateTime())
         .imageList(imageList)

@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface FeedRepository extends JpaRepository<Feed, Long> {
 
-  Optional<List<Feed>> findAllByUserId(User user, Pageable pageable);
+  Optional<List<Feed>> findAllByUserIdAndVisibility(User user, Pageable pageable, boolean isVisibility);
 
 
 }

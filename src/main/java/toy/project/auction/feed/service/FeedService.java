@@ -61,7 +61,7 @@ public class FeedService {
         .orElseThrow(() -> new EntityNotFoundException("User not found with ID: " + userId));
 
     Pageable pageable = PageRequest.of(page, size);
-    List<Feed> feedList = feedRepository.findAllByUserId(user, pageable)
+    List<Feed> feedList = feedRepository.findAllByUserIdAndVisibility(user, pageable, true)
         .orElseThrow(() -> new EntityNotFoundException("No feeds found for user ID: " + userId));
 
     return feedList.stream()
