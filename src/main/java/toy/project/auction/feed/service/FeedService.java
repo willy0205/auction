@@ -77,8 +77,9 @@ public class FeedService {
     List<String> imageUrlList = feedImageList.stream()
         .map(FeedImage::getImageUrl)
         .collect(Collectors.toList());
-
-    return FeedResponse.fromFeed(feed, imageUrlList);
+    FeedResponse feedResponse = FeedResponse.fromFeed(feed, imageUrlList);
+    feedResponse.setId(feed.getId());
+    return feedResponse;
   }
 
 

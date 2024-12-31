@@ -3,6 +3,7 @@ package toy.project.auction.feed.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Getter;
+import toy.project.auction.common.model.ContentDto;
 import toy.project.auction.feed.domain.Feed;
 import toy.project.auction.feed.domain.FeedImage;
 
@@ -12,9 +13,7 @@ import java.util.List;
 @Getter
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL) // null인 필드는 직렬화하지 않음
-public class FeedResponse {
-
-  private long id;
+public class FeedResponse extends ContentDto {
   private String contents;
   private int likeCount;
   private long commentsCount;
@@ -28,7 +27,6 @@ public class FeedResponse {
       return null;
     }
     return FeedResponse.builder()
-        .id(feed.getId())
         .contents(feed.getContents())
         .likeCount(feed.getLikeCount())
         .commentsCount(feed.getCommentsCount())

@@ -8,17 +8,16 @@ import toy.project.auction.auction.domain.Auction;
 import toy.project.auction.auction.domain.AuctionImage;
 import toy.project.auction.auction.enums.AuctionStatus;
 import toy.project.auction.auction.enums.CurrencyUnit;
+import toy.project.auction.common.model.ContentDto;
 
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuctionResponse {
-  private Long id; // 경매 ID
+public class AuctionResponse extends ContentDto {
   private String title; // 경매 제목
   private String summary; // 경매 요약
   private String description; // 경매 설명
@@ -40,7 +39,6 @@ public class AuctionResponse {
       return null;
     }
     return AuctionResponse.builder()
-        .id(auction.getId())
         .title(auction.getTitle())
         .summary(auction.getSummary())
         .description(auction.getDescription())

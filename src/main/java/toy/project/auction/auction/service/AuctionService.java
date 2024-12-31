@@ -102,6 +102,7 @@ public class AuctionService {
       AuctionImage thumbnailPath = auctionImageRepository.findByAuctionAndImageType(auction, ImageType.THUMB).orElseThrow();
       List<AuctionImage> contentPath = auctionImageRepository.findAllByAuctionAndImageType(auction, ImageType.CONTENT).orElseThrow();
       AuctionResponse auctionResponse = AuctionResponse.fromAuction(auction, thumbnailPath, contentPath);
+      auctionResponse.setId(auction.getId());
       result.add(auctionResponse);
     }
 
@@ -118,8 +119,9 @@ public class AuctionService {
 
     AuctionImage auctionThumbnailImage = auctionImageRepository.findByAuctionAndImageType(auction, ImageType.THUMB).orElseThrow();
     List<AuctionImage> auctionContentImageList = auctionImageRepository.findAllByAuctionAndImageType(auction, ImageType.CONTENT).orElseThrow();
-
-    return AuctionResponse.fromAuction(auction, auctionThumbnailImage, auctionContentImageList);
+    AuctionResponse auctionResponse = AuctionResponse.fromAuction(auction, auctionThumbnailImage, auctionContentImageList);
+    auctionResponse.setId(auction.getId());
+    return auctionResponse;
 
   }
 
