@@ -2,6 +2,7 @@ package toy.project.auction.user.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 import toy.project.auction.user.domain.User;
 
@@ -9,7 +10,7 @@ import java.util.Arrays;
 
 @Component
 @RequiredArgsConstructor
-public class UserDataInitializer implements CommandLineRunner {
+public class UserDataInitializer implements CommandLineRunner, Ordered {
 
   private final UserRepository userRepository;
 
@@ -35,4 +36,8 @@ public class UserDataInitializer implements CommandLineRunner {
     }
   }
 
+  @Override
+  public int getOrder() {
+    return 0;
+  }
 }
