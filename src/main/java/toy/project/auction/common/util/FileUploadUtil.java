@@ -21,7 +21,7 @@ public class FileUploadUtil {
   @Value("${file.upload-dir-thumbnail}")
   private String uploadAuctionThumbnailDir;
 
-  @Value("file.upload-dir-feed")
+  @Value("${file.upload-dir-feed}")
   private String uploadFeedImageDir;
 
   // 업로드 디렉토리 생성
