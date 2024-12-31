@@ -43,14 +43,13 @@ public class Feed {
 
   @Column(name = "LIKECOUNT")
   @ColumnDefault("0")
-  private Integer likeCount;
+  private int likeCount;
 
   @Column(name = "COMMENTSCOUNT")
   private long commentsCount;
 
   @Column(name = "VISIBILITY")
-  @ColumnDefault("true")
-  private Boolean visibility;
+  private boolean visibility = true;
 
   @Column(name = "REGISTERTIME")
   private Date registerTime;

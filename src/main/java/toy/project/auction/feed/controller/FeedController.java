@@ -3,6 +3,7 @@ package toy.project.auction.feed.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,7 @@ public class FeedController {
   private final FeedService feedService;
 
   @PostMapping("register")
-  public ResponseEntity<ResponseDto<Void>> registerFeed(@RequestBody FeedRequest feedRequest) {
+  public ResponseEntity<ResponseDto<Void>> registerFeed(@ModelAttribute FeedRequest feedRequest) {
     // user id 추출
     long userid = 1;
     feedRequest.setUserId(userid);
